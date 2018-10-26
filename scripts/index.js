@@ -57,5 +57,55 @@ closeit.addEventListener('click', function(){
     closeit.style.display = 'none';
 })
 
+//Closing pictures on escape key
+window.addEventListener('keydown', (event) => {
+    if(this.event.keyCode === 27){
+        output.style.display = 'none';
+        closeit.style.display = 'none';
+    }
+})
 
+window.addEventListener('keydown', (event) => {
+    
+    if(event.keyCode === 37){//Left
+        let curr = output.getAttribute('src');
+        let prev = getPrevImage(curr);
+        output.setAttribute('src', prev);
+    }else if(event.keyCode === 39){//Right
+        let curr = output.getAttribute('src');
+        let next = getNextImage(curr);
+        output.setAttribute('src', next);
+    }
+})
+
+function getNextImage(currentURL){
+    //find the currentURL's index in the IMAGES array
+    let index = IMAGES.indexOf(currentURL);
+    //TODO: check if index is -1 at this point.
+    //show an error or do something nice.
+    //increment the index
+    index++;
+    //check if it's within bounds, reset if necessary
+    if(index === IMAGES.length){
+        index = 0;
+    }
+    // then return the image URL at the new index
+    return IMAGES[index];
+
+}
+
+function getPrevImage(currentURL){
+    //find the currentURL's index in the IMAGES array
+    let index = IMAGES.indexOf(currentURL);
+    //TODO: check if index is -1 at this point.
+    //show an error or do something nice.
+    //decrement the index
+    index--;
+    //check if it's within bounds, reset if necessary
+    if(index < 0){
+        index = IMAGES.length-1;
+    }
+    // then return the image URL at the new index
+    return IMAGES[index];
+}
 
